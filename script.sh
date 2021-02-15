@@ -25,6 +25,7 @@ main() {
 	else		
 		echo "Cached metadata is old or empty, downloading new artifact."
 		LOCATION_URL=$(get_location_url "$LATEST_METADATA" "$CREDENTIALS")
+		echo "Obtained location url: $LOCATION_URL"
 		download_artifact "$LOCATION_URL"	
 		echo "Artifact downloaded."
 		
