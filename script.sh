@@ -71,7 +71,7 @@ get_location_url () {
 	HEADER=$"Accept: application/vnd.github.v3+json"	
 	DOWNLOAD_URL=$(echo "$METADATA" | jq -r ".archive_download_url")
 	RESPONSE_HEADER=$(curl -H "$HEADER" -u "$CREDENTIALS" -sIXGET "$DOWNLOAD_URL")
-	LOCATION_PART=$(echo "$RESPONSE_HEADER" | grep location:)
+	LOCATION_PART=$(echo "$RESPONSE_HEADER" | grep 'location:')
 	LOCATION_URL=$(echo "$LOCATION_PART" | awk '{print $2}')
 	echo "$LOCATION_URL"
 }
