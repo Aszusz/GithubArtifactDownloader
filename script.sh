@@ -11,7 +11,7 @@ CREDS="${USER}:${TOKEN}"
 
 echo "$CREDS"
 
-CACHED_ARTIFACT_DATA=$(<cached-artifact-data.json)
+CACHED_ARTIFACT_DATA=$(<cached-artifact-data.json) || true
 
 LATEST_ARTIFACT_DATA=$(curl \
 	-H "Accept: application/vnd.github.v3+json" \
