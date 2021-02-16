@@ -79,7 +79,7 @@ get_location_url () {
 
 download_artifact () {
 	LOCATION_URL="$1"
-	wget --progress=bar:force "$LOCATION_URL" -O artifact.zip
+	wget -q "$LOCATION_URL" -O artifact.zip
 }
 
 main "$@"; exit
