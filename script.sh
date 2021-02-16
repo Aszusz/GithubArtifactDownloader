@@ -5,13 +5,11 @@ set -o nounset
 set -o pipefail
 # set -o xtrace
 
-CREDENTIALS_FILE=$"credentials.json" 	# Required
-METADATA_FILE=$"metadata.json"			# Optional
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+CREDENTIALS_FILE=$"${DIR}/credentials.json" 	# Required
+METADATA_FILE=$"${DIR}/metadata.json"			# Optional
 
 main() {
-	DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-	echo "$DIR"
-
 	CREDENTIALS=$(load_credentials)
 	echo "Loaded credentials."
 	
