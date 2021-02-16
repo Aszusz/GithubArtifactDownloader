@@ -3,7 +3,7 @@
 set -o errexit
 set -o nounset
 set -o pipefail
-set -o xtrace
+# set -o xtrace
 
 CREDENTIALS_FILE=$"credentials.json" 	# Required
 METADATA_FILE=$"metadata.json"			# Optional
@@ -71,14 +71,14 @@ get_location_url () {
 	HEADER=$"Accept: application/vnd.github.v3+json"	
 	DOWNLOAD_URL=$(echo "$METADATA" | jq -r ".archive_download_url")
 	RESPONSE_HEADER=$(curl -H "$HEADER" -u "$CREDENTIALS" -sIXGET "$DOWNLOAD_URL")
-	LOCATION_PART=$(echo "$RESPONSE_HEADER" | grep 'Location:')
+	LOCATION_PART=$(echo "$RESPONSE_HEADER" | grep -i 'location:')
 	LOCATION_URL=$(echo "$LOCATION_PART" | awk '{print $2}')
 	echo "$LOCATION_URL"
 }
 
 download_artifact () {
 	LOCATION_URL="$1"
-	wget -q --show-progress --progress=bar:force:noscroll "$LOCATION_URL" -O artifact.zip
+	wget --progress=bar:force "$LOCATION_URL" -O artifact.zip
 }
 
 main "$@"; exit
