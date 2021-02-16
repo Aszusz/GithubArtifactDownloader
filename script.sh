@@ -41,13 +41,13 @@ load_credentials () {
 	CONTENT=$(cat "$CREDENTIALS_FILE")
 
 	USER=$(echo "$CONTENT" | jq -r ".user")
-	if [[ "$USER" == null ]]; then
+	if [[ "$USER" == null || "$USER" == "" ]]; then
 		echo "Error: No user." >&2
 		exit 1
 	fi
 
 	TOKEN=$(echo "$CONTENT" | jq -r ".token")
-	if [[ "$TOKEN" == null ]]; then
+	if [[ "$TOKEN" == null || "$TOKEN" == "" ]]; then
 		echo "Error: No token." >&2
 		exit 1
 	fi
