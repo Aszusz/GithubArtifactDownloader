@@ -18,7 +18,7 @@ readonly request_header="Accept: application/vnd.github.v3+json"
 deploy()
 {
     local run_id
-    run_id="568029177"
+    run_id=$1
 
     log_info "Requested deplyment for run: $run_id"
 
