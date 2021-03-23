@@ -27,11 +27,13 @@ deploy()
 
     local artifacts_metadata
     artifacts_metadata=$(get_body $artifacts_url 2>&1) \
-        && log_info "Got artifacts metadata" \
+        && log_info "Got artifacts metadata : $artifacts_metadata" \
         || log_error "Cannot get artifacts metadata : $artifacts_metadata"
 
     local artifact_metadata
-    artifact_metadata=$(echo "$artifacts_metadata" | jq --join-output ".artifacts[0]")
+    artifact_metadata=$(echo "$artifacts_metadata" | jq --join-output ".artifacts[0]") \
+		&& log_info "Got artifact metadata : $artifact_metadata" \
+        || log_error "Cannot get artifact metadata : $artifact_metadata"
 
     local artifact_id
     artifact_id=$(echo "$artifact_metadata" | jq --join-output ".id")
