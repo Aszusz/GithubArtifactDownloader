@@ -22,6 +22,8 @@ deploy()
     run_id=$1
 
     log_info "Requested deplyment for run: $run_id"
+	
+	sleep 30
 
     local artifacts_url
     artifacts_url="$srv/repos/$user/$repo/actions/runs/$run_id/artifacts"
