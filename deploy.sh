@@ -8,6 +8,7 @@ set -o pipefail
 readonly progdir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )
 readonly github_netrc_file="$progdir/github.netrc"
 readonly log_file="$progdir/log.txt"
+readonly header_log_file="$progdir/header_log.txt"
 
 readonly srv="https://api.github.com"
 readonly user="prominic"
@@ -38,7 +39,11 @@ deploy()
     local artifact_id
     artifact_id=$(echo "$artifact_metadata" | jq --join-output ".id")
 
-    log_info "Artifact id is: $artifact_id"
+	if [[ $artifact_id == null ]] ; then
+		log_error "Artifact id is null"
+	else
+		log_info "Artifact id is: $artifact_id"
+	fi
 
     local expired
     expired=$(echo "$artifact_metadata" | jq --join-output ".expired")
@@ -102,6 +107,7 @@ get_body()
     --netrc-file "$github_netrc_file" \
     --silent \
     --show-error \
+	--dump-header $header_log_file \
     --fail \
     -- "$url" \
     | jq --raw-output
